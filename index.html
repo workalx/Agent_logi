@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Агент Логіки - Екшен Головоломка</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Екран завантаження -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-content">
+                <h1 class="game-title">АГЕНТ ЛОГІКИ</h1>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                <p class="loading-text">Ініціалізація систем безпеки...</p>
+            </div>
+        </div>
+
+        <!-- Головне меню -->
+        <div id="main-menu" class="screen">
+            <div class="menu-content">
+                <h1 class="game-title">АГЕНТ ЛОГІКИ</h1>
+                <div class="story-intro">
+                    <p>Рік 2045. Ви - елітний агент, проникли в секретну базу даних корпорації "Квант".</p>
+                    <p>Ваше завдання: обійти системи безпеки та дістатися до центрального сервера.</p>
+                    <p>Увага: кожна помилка може призвести до виявлення!</p>
+                </div>
+                <div class="menu-buttons">
+                    <button id="start-game" class="menu-btn">ПОЧАТИ МІСІЮ</button>
+                    <button id="instructions" class="menu-btn">ІНСТРУКЦІЇ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Інструкції -->
+        <div id="instructions-screen" class="screen">
+            <div class="instructions-content">
+                <h2>ІНСТРУКЦІЇ</h2>
+                <div class="instruction-item">
+                    <h3>🎯 Мета гри</h3>
+                    <p>Вирішіть всі логічні головоломки, щоб дістатися до центрального сервера.</p>
+                </div>
+                <div class="instruction-item">
+                    <h3>⚡ Типи завдань</h3>
+                    <ul>
+                        <li><strong>Послідовності:</strong> Знайдіть наступний елемент</li>
+                        <li><strong>Патерни:</strong> Визначте закономірність</li>
+                        <li><strong>Математичні:</strong> Розв'яжіть рівняння</li>
+                        <li><strong>Логічні:</strong> Виберіть правильну відповідь</li>
+                    </ul>
+                </div>
+                <div class="instruction-item">
+                    <h3>⏱️ Таймер</h3>
+                    <p>У вас обмежений час на кожне завдання. Будьте швидкими!</p>
+                </div>
+                <button id="back-to-menu" class="menu-btn">ПОВЕРНУТИСЯ</button>
+            </div>
+        </div>
+
+        <!-- Ігровий екран -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="level-info">
+                    <span class="level-label">РІВЕНЬ:</span>
+                    <span id="current-level">1</span>
+                </div>
+                <div class="timer-container">
+                    <div class="timer-bar">
+                        <div id="timer-progress" class="timer-progress"></div>
+                    </div>
+                    <span id="timer-text">30</span>
+                </div>
+                <div class="score-info">
+                    <span class="score-label">БАЛИ:</span>
+                    <span id="current-score">0</span>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="mission-brief">
+                    <h3 id="mission-title">МІСІЯ 1: ОБХІД СИСТЕМИ БЕЗПЕКИ</h3>
+                    <p id="mission-description">Вирішіть головоломку для доступу до наступного рівня безпеки.</p>
+                </div>
+
+                <div class="puzzle-container">
+                    <div id="puzzle-display" class="puzzle-display">
+                        <!-- Тут буде відображатися головоломка -->
+                    </div>
+                    
+                    <div class="answer-section">
+                        <div id="answer-options" class="answer-options">
+                            <!-- Тут будуть варіанти відповідей -->
+                        </div>
+                        <div class="input-section">
+                            <input type="text" id="answer-input" placeholder="Введіть відповідь..." class="answer-input">
+                            <button id="submit-answer" class="submit-btn">ПІДТВЕРДИТИ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button id="skip-puzzle" class="control-btn">ПРОПУСТИТИ</button>
+                    <button id="pause-game" class="control-btn">ПАУЗА</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Екран паузи -->
+        <div id="pause-screen" class="screen">
+            <div class="pause-content">
+                <h2>ГРА ЗАПАУЗЕНА</h2>
+                <div class="pause-stats">
+                    <p>Рівень: <span id="pause-level">1</span></p>
+                    <p>Бали: <span id="pause-score">0</span></p>
+                </div>
+                <div class="pause-buttons">
+                    <button id="resume-game" class="menu-btn">ПРОДОВЖИТИ</button>
+                    <button id="restart-game" class="menu-btn">ПОЧАТИ ЗНОВУ</button>
+                    <button id="quit-to-menu" class="menu-btn">В МЕНЮ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Екран завершення -->
+        <div id="game-over-screen" class="screen">
+            <div class="game-over-content">
+                <h2 id="game-over-title">МІСІЯ ПРОВАЛЕНА</h2>
+                <div class="final-stats">
+                    <p>Досягнутий рівень: <span id="final-level">1</span></p>
+                    <p>Фінальні бали: <span id="final-score">0</span></p>
+                </div>
+                <div class="game-over-buttons">
+                    <button id="retry-game" class="menu-btn">СПРОБУВАТИ ЗНОВУ</button>
+                    <button id="back-to-main" class="menu-btn">ГОЛОВНЕ МЕНЮ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Екран перемоги -->
+        <div id="victory-screen" class="screen">
+            <div class="victory-content">
+                <h2>МІСІЯ ВИКОНАНА!</h2>
+                <div class="victory-message">
+                    <p>Вітаємо, агент! Ви успішно проникли в центральний сервер.</p>
+                    <p>Всі системи безпеки обійдені. Дані в безпеці.</p>
+                </div>
+                <div class="final-stats">
+                    <p>Фінальні бали: <span id="victory-score">0</span></p>
+                    <p>Час виконання: <span id="completion-time">00:00</span></p>
+                </div>
+                <div class="victory-buttons">
+                    <button id="play-again" class="menu-btn">ГРАТИ ЗНОВУ</button>
+                    <button id="victory-to-menu" class="menu-btn">ГОЛОВНЕ МЕНЮ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
