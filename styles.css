@@ -52,6 +52,31 @@ body {
     text-align: center;
     max-width: 600px;
     padding: 2rem;
+    position: relative;
+}
+
+.loading-content > * {
+    transition: all 0.5s ease-out;
+}
+
+.loading-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-illustration {
+    width: 100%;
+    height: 100%;
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .game-title {
@@ -118,6 +143,153 @@ body {
     50% { opacity: 1; }
 }
 
+/* Екран історії */
+.story-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.story-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.8s ease-in-out;
+}
+
+.story-slide.active {
+    display: flex;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.story-slide.prev {
+    transform: translateX(-100%);
+}
+
+.story-image-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.story-background {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: zoomIn 20s ease-in-out infinite alternate;
+}
+
+@keyframes zoomIn {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.story-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(26, 26, 46, 0.8) 50%, rgba(22, 33, 62, 0.9) 100%);
+}
+
+.story-text-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 3rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: #00ff88;
+    text-align: center;
+}
+
+.story-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px #00ff88;
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 0 0 20px #00ff88; }
+    to { text-shadow: 0 0 30px #00ff88, 0 0 40px #00ff88; }
+}
+
+.story-description {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #00ccff;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.story-progress {
+    margin-bottom: 2rem;
+}
+
+.story-counter {
+    font-size: 1.2rem;
+    color: #00ff88;
+    font-weight: 700;
+    background: rgba(0, 255, 136, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #00ff88;
+}
+
+.story-controls {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.story-btn {
+    background: linear-gradient(45deg, #00ff88, #00ccff);
+    border: none;
+    color: #000;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 120px;
+}
+
+.story-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+}
+
+.story-btn.skip-btn {
+    background: linear-gradient(45deg, #ff6600, #cc3300);
+    color: #fff;
+}
+
 /* Головне меню */
 .menu-content {
     text-align: center;
@@ -132,6 +304,33 @@ body {
     padding: 2rem;
     margin: 2rem 0;
     backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.story-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-illustration {
+    width: 100%;
+    height: 100%;
+    animation: float 3s ease-in-out infinite;
+}
+
+.story-text {
+    flex: 1;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
 .story-intro p {
@@ -341,6 +540,31 @@ body {
     box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
 }
 
+.puzzle-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.puzzle-image {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.puzzle-illustration {
+    width: 100%;
+    height: 100%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
 .puzzle-display {
     text-align: center;
     margin-bottom: 2rem;
@@ -481,6 +705,49 @@ body {
     backdrop-filter: blur(15px);
 }
 
+.victory-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameover-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameover-illustration {
+    width: 100%;
+    height: 100%;
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.victory-illustration {
+    width: 100%;
+    height: 100%;
+    animation: celebrate 2s ease-in-out infinite;
+}
+
+@keyframes celebrate {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(5deg); }
+    50% { transform: scale(1.2) rotate(0deg); }
+    75% { transform: scale(1.1) rotate(-5deg); }
+}
+
 .pause-content h2, .game-over-content h2, .victory-content h2 {
     color: #00ff88;
     font-size: 2.5rem;
@@ -527,9 +794,25 @@ body {
         font-size: 2.5rem;
     }
     
+    .story-intro {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .story-image {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 1rem;
+    }
+    
     .puzzle-container {
         min-width: 90%;
         padding: 1rem;
+    }
+    
+    .puzzle-image {
+        width: 80px;
+        height: 80px;
     }
     
     .game-header {
@@ -548,6 +831,40 @@ body {
     
     .input-section {
         flex-direction: column;
+    }
+    
+    .victory-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .gameover-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .loading-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .story-title {
+        font-size: 2rem;
+    }
+    
+    .story-description {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .story-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .story-btn {
+        min-width: 100px;
+        padding: 0.8rem 1.5rem;
     }
 }
 
