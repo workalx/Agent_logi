@@ -12,6 +12,9 @@
         <!-- Екран завантаження -->
         <div id="loading-screen" class="screen active">
             <div class="loading-content">
+                <div class="loading-image">
+                    <img src="images/loading.svg" alt="Завантаження" class="loading-illustration">
+                </div>
                 <h1 class="game-title">АГЕНТ ЛОГІКИ</h1>
                 <div class="loading-bar">
                     <div class="loading-progress"></div>
@@ -20,14 +23,100 @@
             </div>
         </div>
 
+        <!-- Екран історії -->
+        <div id="story-screen" class="screen">
+            <div class="story-content">
+                <div class="story-slide active" data-slide="1">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop" alt="Кіберпанк місто" class="story-background">
+                        <div class="story-overlay"></div>
+                    </div>
+                    <div class="story-text-container">
+                        <h2 class="story-title">РІК 2045</h2>
+                        <p class="story-description">Світ контролюється корпораціями. Технології досягли небачених висот, але свобода стала рідкістю. Корпорація "Квант" володіє найважливішими даними людства.</p>
+                        <div class="story-progress">
+                            <span class="story-counter">1 / 5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-slide" data-slide="2">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop" alt="Секретна база" class="story-background">
+                        <div class="story-overlay"></div>
+                    </div>
+                    <div class="story-text-container">
+                        <h2 class="story-title">СЕКРЕТНА БАЗА ДАНИХ</h2>
+                        <p class="story-description">Глибоко під землею знаходиться центральний сервер "Квант". Він містить інформацію, яка може змінити долю всього світу. Але доступ до нього захищений найскладнішими системами безпеки.</p>
+                        <div class="story-progress">
+                            <span class="story-counter">2 / 5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-slide" data-slide="3">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop" alt="Агент" class="story-background">
+                        <div class="story-overlay"></div>
+                    </div>
+                    <div class="story-text-container">
+                        <h2 class="story-title">ЕЛІТНИЙ АГЕНТ</h2>
+                        <p class="story-description">Ви - один з найкращих агентів Опору. Ваше завдання: проникнути в базу даних, обійти системи безпеки та дістатися до центрального сервера. Кожна помилка може призвести до виявлення.</p>
+                        <div class="story-progress">
+                            <span class="story-counter">3 / 5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-slide" data-slide="4">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?w=600&h=400&fit=crop" alt="Системи безпеки" class="story-background">
+                        <div class="story-overlay"></div>
+                    </div>
+                    <div class="story-text-container">
+                        <h2 class="story-title">СИСТЕМИ БЕЗПЕКИ</h2>
+                        <p class="story-description">Кожен рівень захищений логічними головоломками. Вам потрібно буде вирішувати послідовності, патерни, математичні завдання та логічні проблеми. У вас обмежений час на кожне завдання.</p>
+                        <div class="story-progress">
+                            <span class="story-counter">4 / 5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-slide" data-slide="5">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop" alt="Місія" class="story-background">
+                        <div class="story-overlay"></div>
+                    </div>
+                    <div class="story-text-container">
+                        <h2 class="story-title">МІСІЯ ПОЧИНАЄТЬСЯ</h2>
+                        <p class="story-description">Готові до місії, агент? Вам потрібно пройти 10 рівнів безпеки. Кожен рівень стає складнішим. Будьте швидкими, будьте логічними. Світ чекає на вас.</p>
+                        <div class="story-progress">
+                            <span class="story-counter">5 / 5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-controls">
+                    <button id="prev-slide" class="story-btn">◀ НАЗАД</button>
+                    <button id="next-slide" class="story-btn">ДАЛІ ▶</button>
+                    <button id="skip-story" class="story-btn skip-btn">ПРОПУСТИТИ</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Головне меню -->
         <div id="main-menu" class="screen">
             <div class="menu-content">
                 <h1 class="game-title">АГЕНТ ЛОГІКИ</h1>
                 <div class="story-intro">
-                    <p>Рік 2045. Ви - елітний агент, проникли в секретну базу даних корпорації "Квант".</p>
-                    <p>Ваше завдання: обійти системи безпеки та дістатися до центрального сервера.</p>
-                    <p>Увага: кожна помилка може призвести до виявлення!</p>
+                    <div class="story-image">
+                        <img src="images/agent.svg" alt="Агент" class="story-illustration">
+                    </div>
+                    <div class="story-text">
+                        <p>Рік 2045. Ви - елітний агент, проникли в секретну базу даних корпорації "Квант".</p>
+                        <p>Ваше завдання: обійти системи безпеки та дістатися до центрального сервера.</p>
+                        <p>Увага: кожна помилка може призвести до виявлення!</p>
+                    </div>
                 </div>
                 <div class="menu-buttons">
                     <button id="start-game" class="menu-btn">ПОЧАТИ МІСІЮ</button>
@@ -87,6 +176,11 @@
                 </div>
 
                 <div class="puzzle-container">
+                    <div class="puzzle-header">
+                        <div class="puzzle-image">
+                            <img src="images/puzzle.svg" alt="Головоломка" class="puzzle-illustration">
+                        </div>
+                    </div>
                     <div id="puzzle-display" class="puzzle-display">
                         <!-- Тут буде відображатися головоломка -->
                     </div>
@@ -128,6 +222,9 @@
         <!-- Екран завершення -->
         <div id="game-over-screen" class="screen">
             <div class="game-over-content">
+                <div class="gameover-image">
+                    <img src="images/gameover.svg" alt="Програш" class="gameover-illustration">
+                </div>
                 <h2 id="game-over-title">МІСІЯ ПРОВАЛЕНА</h2>
                 <div class="final-stats">
                     <p>Досягнутий рівень: <span id="final-level">1</span></p>
@@ -142,12 +239,15 @@
 
         <!-- Екран перемоги -->
         <div id="victory-screen" class="screen">
-            <div class="victory-content">
-                <h2>МІСІЯ ВИКОНАНА!</h2>
-                <div class="victory-message">
-                    <p>Вітаємо, агент! Ви успішно проникли в центральний сервер.</p>
-                    <p>Всі системи безпеки обійдені. Дані в безпеці.</p>
-                </div>
+                            <div class="victory-content">
+                    <div class="victory-image">
+                        <img src="images/victory.svg" alt="Перемога" class="victory-illustration">
+                    </div>
+                    <h2>МІСІЯ ВИКОНАНА!</h2>
+                    <div class="victory-message">
+                        <p>Вітаємо, агент! Ви успішно проникли в центральний сервер.</p>
+                        <p>Всі системи безпеки обійдені. Дані в безпеці.</p>
+                    </div>
                 <div class="final-stats">
                     <p>Фінальні бали: <span id="victory-score">0</span></p>
                     <p>Час виконання: <span id="completion-time">00:00</span></p>
