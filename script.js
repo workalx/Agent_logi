@@ -9,6 +9,12 @@ let gameState = {
     totalLevels: 10
 };
 
+// Змінні для історії
+let storyState = {
+    currentSlide: 1,
+    totalSlides: 5
+};
+
 // Типи головоломок
 const puzzleTypes = {
     SEQUENCE: 'sequence',
@@ -138,6 +144,11 @@ function setupEventListeners() {
     document.getElementById('instructions').addEventListener('click', showInstructions);
     document.getElementById('back-to-menu').addEventListener('click', showMainMenu);
     
+    // Кнопки історії
+    document.getElementById('prev-slide').addEventListener('click', prevSlide);
+    document.getElementById('next-slide').addEventListener('click', nextSlide);
+    document.getElementById('skip-story').addEventListener('click', skipStory);
+    
     // Ігрові кнопки
     document.getElementById('submit-answer').addEventListener('click', submitAnswer);
     document.getElementById('skip-puzzle').addEventListener('click', skipPuzzle);
@@ -162,12 +173,28 @@ function setupEventListeners() {
             submitAnswer();
         }
     });
+    
+    // Обробка клавіш для історії
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('story-screen').classList.contains('active')) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'Escape') {
+                skipStory();
+            }
+        }
+    });
 }
 
 // Екран завантаження
 function startLoadingScreen() {
     const loadingProgress = document.querySelector('.loading-progress');
     const loadingText = document.querySelector('.loading-text');
+    const gameTitle = document.querySelector('.game-title');
+    const loadingImage = document.querySelector('.loading-illustration');
+    
     const loadingTexts = [
         'Ініціалізація систем безпеки...',
         'Підключення до серверу...',
@@ -179,28 +206,134 @@ function startLoadingScreen() {
     let progress = 0;
     let textIndex = 0;
     
+    // Анімація появи заголовка
+    gameTitle.style.opacity = '0';
+    gameTitle.style.transform = 'translateY(-50px)';
+    
+    setTimeout(() => {
+        gameTitle.style.transition = 'all 1s ease-out';
+        gameTitle.style.opacity = '1';
+        gameTitle.style.transform = 'translateY(0)';
+    }, 500);
+    
+    // Анімація появи ілюстрації
+    loadingImage.style.opacity = '0';
+    loadingImage.style.transform = 'scale(0.5)';
+    
+    setTimeout(() => {
+        loadingImage.style.transition = 'all 1s ease-out';
+        loadingImage.style.opacity = '1';
+        loadingImage.style.transform = 'scale(1)';
+    }, 1000);
+    
     const loadingInterval = setInterval(() => {
-        progress += 2;
+        progress += 1.5;
         loadingProgress.style.width = progress + '%';
         
         if (progress % 20 === 0 && textIndex < loadingTexts.length - 1) {
             textIndex++;
-            loadingText.textContent = loadingTexts[textIndex];
+            loadingText.style.opacity = '0';
+            loadingText.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                loadingText.textContent = loadingTexts[textIndex];
+                loadingText.style.transition = 'all 0.5s ease-out';
+                loadingText.style.opacity = '1';
+                loadingText.style.transform = 'translateY(0)';
+            }, 200);
         }
         
         if (progress >= 100) {
             clearInterval(loadingInterval);
+            
+            // Фінальна анімація
             setTimeout(() => {
-                showMainMenu();
-            }, 500);
+                gameTitle.style.transition = 'all 0.8s ease-in';
+                gameTitle.style.opacity = '0';
+                gameTitle.style.transform = 'translateY(-30px)';
+                
+                loadingImage.style.transition = 'all 0.8s ease-in';
+                loadingImage.style.opacity = '0';
+                loadingImage.style.transform = 'scale(1.2)';
+                
+                loadingText.style.transition = 'all 0.8s ease-in';
+                loadingText.style.opacity = '0';
+                loadingText.style.transform = 'translateY(-10px)';
+                
+                setTimeout(() => {
+                    showStory();
+                }, 800);
+            }, 1000);
         }
-    }, 50);
+    }, 60);
+}
+
+// Показати історію
+function showStory() {
+    hideAllScreens();
+    document.getElementById('story-screen').classList.add('active');
+    storyState.currentSlide = 1;
+    updateStorySlide();
 }
 
 // Показати головне меню
 function showMainMenu() {
     hideAllScreens();
     document.getElementById('main-menu').classList.add('active');
+}
+
+// Функції для керування історією
+function nextSlide() {
+    if (storyState.currentSlide < storyState.totalSlides) {
+        storyState.currentSlide++;
+        updateStorySlide();
+    } else {
+        // Кінець історії, переходимо до меню
+        showMainMenu();
+    }
+}
+
+function prevSlide() {
+    if (storyState.currentSlide > 1) {
+        storyState.currentSlide--;
+        updateStorySlide();
+    }
+}
+
+function skipStory() {
+    showMainMenu();
+}
+
+function updateStorySlide() {
+    // Приховуємо всі слайди
+    document.querySelectorAll('.story-slide').forEach(slide => {
+        slide.classList.remove('active', 'prev');
+    });
+    
+    // Показуємо поточний слайд
+    const currentSlide = document.querySelector(`[data-slide="${storyState.currentSlide}"]`);
+    if (currentSlide) {
+        currentSlide.classList.add('active');
+    }
+    
+    // Оновлюємо лічильник
+    const counter = document.querySelector('.story-counter');
+    if (counter) {
+        counter.textContent = `${storyState.currentSlide} / ${storyState.totalSlides}`;
+    }
+    
+    // Оновлюємо кнопки
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    
+    if (prevBtn) {
+        prevBtn.style.opacity = storyState.currentSlide === 1 ? '0.5' : '1';
+        prevBtn.disabled = storyState.currentSlide === 1;
+    }
+    
+    if (nextBtn) {
+        nextBtn.textContent = storyState.currentSlide === storyState.totalSlides ? 'ПОЧАТИ ГРУ ▶' : 'ДАЛІ ▶';
+    }
 }
 
 // Показати інструкції
@@ -232,6 +365,9 @@ function loadPuzzle() {
     // Оновити інформацію про місію
     document.getElementById('mission-title').textContent = `МІСІЯ ${gameState.currentLevel}: ${mission}`;
     document.getElementById('mission-description').textContent = puzzle.explanation;
+    
+    // Змінити ілюстрацію в залежності від рівня
+    updatePuzzleIllustration();
     
     // Показати питання
     document.getElementById('puzzle-display').innerHTML = `
@@ -512,6 +648,27 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Оновити ілюстрацію головоломки
+function updatePuzzleIllustration() {
+    const puzzleImage = document.querySelector('.puzzle-illustration');
+    if (!puzzleImage) return;
+    
+    // Змінюємо ілюстрацію в залежності від рівня
+    if (gameState.currentLevel <= 3) {
+        puzzleImage.src = 'images/puzzle.svg';
+    } else if (gameState.currentLevel <= 6) {
+        puzzleImage.src = 'images/server.svg';
+    } else {
+        puzzleImage.src = 'images/agent.svg';
+    }
+    
+    // Додаємо ефект зміни
+    puzzleImage.style.animation = 'none';
+    setTimeout(() => {
+        puzzleImage.style.animation = 'pulse 2s ease-in-out infinite';
+    }, 100);
+}
 
 // Створити матричний фон
 function createMatrixBackground() {
